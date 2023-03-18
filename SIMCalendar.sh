@@ -1,9 +1,11 @@
 #!/bin/sh
+
 url=https://studentcal.simge.edu.sg/SIMCalendar/"$1".ics
 filename=$(basename $url)
 IFS=$(printf '\n.')
 IFS=${IFS%.}
-test -f "$filename" && rm -v "$filename"
+test -f "$filename" && rm "$filename"
+
 for i in $(wget -qO- $url | sed 's/;TZID="Singapore Standard Time"//g; 6,16d'); do
 if printf %s "$i" | grep -Eq 'DT(START|END)'; then
 printf "%s%s%s\n" \
@@ -15,14 +17,15 @@ else
 printf %s\\n "$i" >>"$filename"
 fi
 done
+
 printf \\n >> "$filename"
 sed -i 's/\r//g' "$filename"
-test -z "$changename" && changename=false
-if $changename; then
+
+if test "$changename" = true; then
 for i in $(grep "SUMMARY:" "$filename" | sort -u | awk -F: '{print $2}'); do
 printf %s "$i: " && read -r changename
 sed -i "s/$i/$changename/g" "$filename"
 done
 fi
-# sed -i 's/Mathematics for Science/MATH001/g' "$filename"
+
 unset url filename changename i
