@@ -21,9 +21,6 @@ If you see a `.sh` file, any of the following will work:
 
 [zsh]: https://zsh.sourceforge.io/
 
-Some scripts are meant for specific operating systems, \
-like the [TPCHR installer script for CSCI235's Oracle VM](235_22S4/oracle.sh).
-
 ## Overview
 
 ### [SIMCalendar](SIMCalendar.sh)
@@ -40,7 +37,7 @@ wget https://raw.githubusercontent.com/mkamsani/school/main/SIMCalendar.sh
 
 Set the script to be executable as program:
 ```bash
-chmod +x calendar.sh
+chmod +x SIMCalendar.sh
 ```
 
 Run the script:
